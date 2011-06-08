@@ -32,7 +32,14 @@ git_dirtyness() {
     fi
 }
 
+function rvm_info() {
+    GEMSET=`echo $GEM_HOME| egrep -o '@[A-z0-9]+' | cut -c 2-`
+    if [[ -n $GEMSET ]]; then
+        echo "[$GEMSET] "
+    fi
+}
+
 PROMPT_DIR='%{$fg_bold[magenta]%}%c%{$reset_color%}'
 
 PROMPT="$PROMPT_DIR %(?,%{$fg[green]%},%{$fg[red]%})⚡%{$reset_color%} "
-RPROMPT='%{$fg_bold[yellow]%}$(virtualenv_info)%{$reset_color%}$(git_dirtyness)'
+RPROMPT='%{$fg_bold[yellow]%}$(rvm_info)$(virtualenv_info)%{$reset_color%}$(git_dirtyness)'
