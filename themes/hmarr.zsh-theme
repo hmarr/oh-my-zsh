@@ -33,7 +33,7 @@ git_dirtyness() {
 }
 
 function rvm_info() {
-    GEMSET=`echo $GEM_HOME| egrep -o '@[A-z0-9]+' | cut -c 2-`
+    GEMSET=`echo $GEM_HOME| egrep -o '@[A-z0-9_-]+' | cut -c 2-`
     if [[ -n $GEMSET ]]; then
         echo "[$GEMSET] "
     fi
