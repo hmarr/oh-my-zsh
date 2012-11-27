@@ -39,6 +39,10 @@ compdef _git gm=git-merge
 alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
 
+# Will cd into the top of the current repository
+# or submodule.
+alias grt='cd $(git rev-parse --show-toplevel || echo ".")'
+
 # Git and svn mix
 alias git-svn-dcommit-push='git svn dcommit && git push github master:svntrunk'
 compdef git-svn-dcommit-push=git
@@ -52,6 +56,12 @@ alias gsd='git svn dcommit'
 function current_branch() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo ${ref#refs/heads/}
+}
+
+function current_repository() {
+
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo $(git remote -v | cut -d':' -f 2)
 }
 
 # these aliases take advantage of the previous function
